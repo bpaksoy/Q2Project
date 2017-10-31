@@ -35,63 +35,100 @@ function isValid(id){
   return !isNaN(id);
 }
 
-app.get("/users/:id", function(req,res,next){
+app.get("/users/:id/profile", function(req, res, next){
   const id = req.params.id;
-  if(isValid(id)){
-    knex("users")
+     knex("students")
+      .where("user_id", id)
+      .first()
+      .then(function(profile){
+        console.log("this is profile ", profile);
+        res.render("profile", {profile});
+      }).catch(function(err){
+        console.log(err);
+      });
+});
+
+app.get("/users/:id", function(req, res, next){
+   const id = req.params.id;
+   knex("users")
     .where("id", id)
     .first()
     .then(function(user){
-      knex("statement")
-      .where("user_id", id)
-      .then(function(statement){
-           console.log("this is statement", statement);
-           res.render("user", {user, statement});
-      });
+         console.log("user", user);
+         res.render("user", {user});
+   }).catch(function(err){
+     console.log(err);
    });
-  } else{
-    //res.sendStatus(404);
-    res.render("error");
-  }
 });
 
-app.get("/users/:id", function (req, res, next){
-  knex("students")
-  .then(function(statement){
-    res.render("statement", {statement})
-  });
-});
+//to create and post a personal statement
+// app.post("/users/:id/profile/statement", function(req, res, next){
+//   const id = req.params.id;
+//   const {title, post} = req.body;
+//   knex("statement")
+//   .insert({
+//     title: title,
+//     post: post,
+//     user_id: id
+//   }).then(function(){
+//     res.redirect("/users/" + id + "/profile" )
+//   });
+// });
 
 
+//create and post personal information to students table
 app.post("/users/:id", function(req, res, next){
   const id = req.params.id;
-  const {title, post} = req.body;
-  knex("statement")
-  .insert({
-    title: title,
-    post: post,
-    user_id: id
-  }).then(function(){
-    res.redirect("/users/" + id)
-  });
+  const {name, last_name, country, city, state, alma_mater, gpa, toefl, ielts, sat} = req.body;
+     knex("students")
+     .insert({
+       name: name,
+       last_name: last_name,
+       country: country,
+       city: city,
+       state: state,
+       alma_mater: alma_mater,
+       gpa: gpa,
+       toefl: toefl,
+       ielts: ielts,
+       sat:sat,
+       user_id: id
+     }).then(function(){
+         res.redirect("/users/" + id  + "/profile")
+       }).catch(function(err){
+         console.log(err);
+       });
 });
 
 
+
+//compare sign in information with users table
 app.post("/sign_in", function(req, res, next){
- const {username, email, password} = req.body;
- bcrypt.hash(req.body.password, 12)
- .then(function(hashed_password){
-   return knex("users")
-   .where("username", username)
-   .first()
-   .then(function(user){
-     res.redirect("/users/" + user.id);
-   });
- }).catch(function(err){
-   next(err);
- });
+ const {username, password} = req.body;
+  knex("users")
+  .where("username", username)
+  .first()
+  .then(function(user){
+      bcrypt.compare(password, user.hashed_password)
+      .then(function(){
+        knex("students")
+        .where("name", undefined)
+        .then(function(){
+          res.redirect("/users/" + user.id);
+        })
+        .catch(function(){
+          res.redirect("/users/" + user.id + "/profile");
+        })
+      });
+   })
+  .catch(function(err){
+    res.redirect("/sign_in");
+  });
+
 });
 
+
+//sign up to the page and insert information to users table
 app.post("/sign_up", function(req,res, next){
   const {username, email, password} = req.body;
   bcrypt.hash(req.body.password, 12)
@@ -113,6 +150,7 @@ app.post("/sign_up", function(req,res, next){
     next(err);
   });
 });
+
 
 
 app.listen(port, function(){

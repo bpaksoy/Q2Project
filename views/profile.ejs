@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-    <title>HiScholar SignIn Page</title>
+    <title>HiScholar Profile Page</title>
   </head>
   <body background="img/backgroundImg.png">
     <nav id="navigation">
        <div class="nav-wrapper">
-         <a href="/sign_up" class="brand-logo">HiScholar</a>
+         <a href="/profile" class="brand-logo">HiScholar</a>
          <ul id="nav-mobile" class="right hide-on-med-and-down">
            <li><a href="/sign_out">Sign out</a></li>
            <li><a href="/forgot_password">Forgot password?</a></li>
@@ -17,37 +17,48 @@
        </div>
      </nav>
      <main>
-     <br><br><br><br>
+     <br><br>
      <div class="row">
-       <div class="col s12">
-       <div class="col s12">
-         <h3>Welcome to HiScholar</h3>
-       </div>
-       <div class="col s12">
-         <h5>Sign in Here</h5>
-       </div>
-       <div class="col s12">
-        <form action="/sign_in" method="post">
-        </div>
-        <div class="col s4">
-          <div class="col s12">
-          <input name="username" type="text" placeholder="enter a username">
-          </div>
-
-          <div class="col s12">
-          <input name="password" type="password" placeholder="enter a password">
-          </div>
-        </div>
-
-        <div class="col s12">
-           <input type="submit" value="Sign in">
-        </div>
-        </form>
-      </div>
+     <div class="col s12">
+         <h3>Hello, <%=profile.name%></h3>
      </div>
-       <!-- <div class="row">
+      <div class="col s6 m4">
+        <h4 class="header">Personal information</h4>
+        <div class="card horizontal">
+          <div class="card-image">
+            <img src="https://lorempixel.com/100/190/nature/6">
+          </div>
+          <div class="card-stacked">
+            <div class="card-content">
+              <ul>
 
-     </div> -->
+              <% if (profile.country) { %>
+                <li>Country: <%= profile.country%></li>
+              <% } %>
+              <% if (profile.city) { %>
+                <li>City: <%= profile.city%></li>
+              <% } %>
+              <% if (profile.alma_mater) { %>
+                <li>Alma_mater: <%= profile.alma_mater%></li>
+              <% } %>
+              <% if (profile.gpa) { %>
+                <li>GPA: <%= profile.gpa%></li>
+              <% } %>
+              <% if (profile.sat) { %>
+                <li>SAT: <%= profile.sat%></li>
+              <% } %>
+              <% if (profile.toefl) { %>
+                <li>TOEFL: <%= profile.toefl%></li>
+              <% } %>
+              </ul>
+            </div>
+            <div class="card-action">
+              <a href="#">Upload Your Resume</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </main>
      <footer id="page-footer">
           <div class="row">

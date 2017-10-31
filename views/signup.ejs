@@ -6,51 +6,77 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <title>HiScholar SignUp Page</title>
   </head>
-  <body>
-    <nav>
+  <body background="img/backgroundImg.png">
+    <nav id="navigation">
        <div class="nav-wrapper">
-         <a href="/sign_up" class="brand-logo">HiScholar</a>
-         <ul id="nav-mobile" class="right hide-on-med-and-down">
-           <li><a href="/sign_in">Sign in</a></li>
-           <li><a href="badges.html">Components</a></li>
-         </ul>
+         <div class="col s2">
+            <a href="/sign_up" class="brand-logo"> <img id="logoImg" src="img/logo1.png"></a>
+         </div>
+        <div class="col s10">
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="/sign_in">Sign in</a></li>
+            <li><a href="badges.html">Components</a></li>
+          </ul>
+        </div>
        </div>
      </nav>
+     <main>
+     <br><br><br>
      <div class="row">
        <div class="col s12">
-         <h3>Welcome to HiScholar</h3>
-       </div>
-       <div class="col s12">
-         <h5>Sign Up Here</h5>
+         <div class="col s6">
+           <h3>Welcome to HiScholar</h3>
+         </div>
+         <div class="col s12">
+           <h5>Sign Up Here</h5>
+         </div>
+         <div class="col s6">
+          <form action="/sign_up" method="post">
+          <div class="col s6">
+            <input name="username" type="text" placeholder="enter a username">
+          </div>
+
+          <div class="col s6">
+          <input name="email" type="text" placeholder="enter email">
+          </div>
+          <br>
+
+          <div class="col s3">
+          <input name="password" type="password" placeholder="enter a password">
+          </div>
+
+          <div class="col s3">
+            <input name="re-type password" type="password" placeholder="re-type your password">
+          </div>
+           <div class="col s12">
+              <input type="submit" value="Sign up">
+           </div>
+          </form>
+        </div>
+         <div class="col s6">
+           <img id="passionPhoto" src="img/passion.jpg" alt="img">
+         </div>
        </div>
      </div>
 
        <div class="row">
-        <div class="col s6">
-         <form action="/sign_up" method="post">
-         <div class="col s6">
-           <input name="username" type="text" placeholder="enter a username">
-         </div>
 
-
-         <div class="col s6">
-         <input name="email" type="text" placeholder="enter email">
-         </div>
-         <br>
-
-         <div class="col s6">
-         <input name="password" type="password" placeholder="enter a password">
-         </div>
-
-         <div class="col s6">
-           <input name="re-type password" type="password" placeholder="re-type your password">
-         </div>
-          <div class="col s6">
-             <input type="submit" value="Sign up">
-          </div>
-         </form>
-       </div>
      </div>
+     </main>
+       <footer id="page-footer">
+            <div class="row">
+              <div class="col s12" id="footerContent">
+                <h6 class="white-text">HiScholar.com</h6>
+              </div>
+          </div>
+          <div id="footer-copyright">
+            <div class="row">
+               <div class="col s12">
+                © 2017 Banu Yilmaz
+              </div>
+           </div>
+          </div>
+   </footer>
 
      <script
    src="https://code.jquery.com/jquery-3.2.1.min.js"
