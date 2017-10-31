@@ -9,9 +9,9 @@ exports.up = function(knex, Promise) {
     table.varchar("city").notNullable().defaultTo("");
     table.varchar("state").notNullable().defaultTo("");
     table.varchar("alma_mater").defaultTo("");
-    table.decimal("gpa", 3, 2).defaultTo(0.00);
+    table.decimal("gpa", 3, 2).defaultTo(0);
     table.integer("toefl", 3).defaultTo(0);
-    table.decimal("ielts", 2, 1).defaultTo(0.0);
+    table.decimal("ielts", 2, 1).defaultTo(0);
     table.integer("sat", 4).defaultTo(0);
     table.timestamps(true, true);
   });

@@ -1,27 +1,29 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-    <title>HiScholar Profile Page</title>
-  </head>
-  <body background="img/backgroundImg.png">
-    <nav id="navigation">
-       <div class="nav-wrapper">
-         <a href="/profile" class="brand-logo">HiScholar</a>
-         <ul id="nav-mobile" class="right hide-on-med-and-down">
-           <li><a href="/sign_out">Sign out</a></li>
-           <li><a href="/forgot_password">Forgot password?</a></li>
-         </ul>
-       </div>
-     </nav>
-     <main>
-     <br><br>
-     <div class="row">
-     <div class="col s12">
-         <h3>Hello, <%=profile.name%></h3>
-     </div>
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+  <title>HiScholar Profile Page</title>
+</head>
+
+<body background="img/backgroundImg.png">
+  <nav id="navigation">
+    <div class="nav-wrapper">
+      <a href="/profile" class="brand-logo">HiScholar</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="/sign_out">Sign out</a></li>
+        <li><a href="/forgot_password">Forgot password?</a></li>
+      </ul>
+    </div>
+  </nav>
+  <main>
+    <br><br>
+    <div class="row">
+      <div class="col s12">
+        <h3>Hello, <%=profile.name%></h3>
+      </div>
       <div class="col s6 m4">
         <h5 class="header">Personal information</h5>
         <div class="card horizontal">
@@ -32,28 +34,40 @@
             <div class="card-content">
               <ul>
 
-              <% if (profile.country) { %>
-                <li>Country: <%= profile.country%></li>
-              <% } %>
-              <% if (profile.city) { %>
-                <li>City: <%= profile.city%></li>
-              <% } %>
-              <% if (profile.alma_mater) { %>
-                <li>Alma mater: <%= profile.alma_mater%></li>
-              <% } %>
-              <% if (profile.gpa) { %>
-                <li>GPA: <%= profile.gpa%></li>
-              <% } %>
-              <% if (profile.sat) { %>
-                <li>SAT: <%= profile.sat%></li>
-              <% } %>
-              <% if (profile.toefl) { %>
-                <li>TOEFL: <%= profile.toefl%></li>
-              <% } %>
+                <% if (profile.country) { %>
+                  <li>Country:
+                    <%= profile.country%>
+                  </li>
+                  <% } %>
+                    <% if (profile.city) { %>
+                      <li>City:
+                        <%= profile.city%>
+                      </li>
+                      <% } %>
+                        <% if (profile.alma_mater) { %>
+                          <li>Alma mater:
+                            <%= profile.alma_mater%>
+                          </li>
+                          <% } %>
+                            <% if (profile.gpa) { %>
+                              <li>GPA:
+                                <%= profile.gpa%>
+                              </li>
+                              <% } %>
+                                <% if (profile.sat) { %>
+                                  <li>SAT:
+                                    <%= profile.sat%>
+                                  </li>
+                                  <% } %>
+                                    <% if (profile.toefl) { %>
+                                      <li>TOEFL:
+                                        <%= profile.toefl%>
+                                      </li>
+                                      <% } %>
               </ul>
             </div>
             <div class="card-action">
-               <a href="#">Upload Resume</a>
+              <a href="#">Upload Resume</a>
 
             </div>
           </div>
@@ -61,54 +75,104 @@
       </div>
 
       <div class="col s6">
-           <div class="col s12">
-             <h5>Personal Statement</h5>
-             <div class="col s12">
-               <div class="col s6">
-                 <form action="/users/<%= user.id%>/statement" method="post">
-                   <input type="text" placeholder="title" name="title">
-                   <input type="text" name="post" placeholder="post">
-                   <input type="submit" value="Add">
-                 </form>
-               </div>
-             </div>
-           </div>
-           <% if(post){ %>
-           <% for(var i =0; i < post.length; i++) { %>
-             <div class="row">
-               <div class="col s12 m6">
-                 <div class="card light-grey darken-1">
-                   <div class="card-content black-text">
-                     <span class="card-title"><%= post[i].title %></span>
-                     <p>
-                       <%= post[i].post %>
-                     </p>
-                   </div>
-                 </div>
-               </div>
-             </div>
-             <% } %>
-         <% } %>
-   </div>
-    </main>
-     <footer id="page-footer">
-          <div class="row">
-            <div class="col s12" id="footerContent">
-              <h6 class="white-text">HiScholar.com</h6>
+        <div class="col s12">
+          <div class="col s6">
+            <h5>Personal Statement</h5>
+          </div>
+          <div class="col s12">
+            <div class="col s6">
+              <form action="/users/<%= user.id%>/profile/statement" method="post">
+                <input type="text" placeholder="title" name="title">
+                <input type="text" name="post" placeholder="post">
+                <input type="submit" value="Submit">
+              </form>
             </div>
+          </div>
         </div>
-        <div id="footer-copyright">
+        <% if(post){ %>
           <div class="row">
-             <div class="col s12">
-              © 2017 Banu Yilmaz
+            <div class="col s12 m6">
+              <div class="card light-grey darken-1">
+                <div class="card-content black-text">
+                  <span class="card-title"><%= post.title %></span>
+                  <p>
+                    <%= post.post %>
+                  </p>
+                </div>
+              </div>
             </div>
-         </div>
+          </div>
+          <% } %>
+      </div>
+  <div class="col s6">
+    <div class="col s12">
+        <h4>Add Schools</h4>
+    </div>
+    <div class="col s6">
+      <div class="col s12">
+      <form action="/users/<%= user.id%>/profile/schools" method="post">
+      <input name="school_name" list="schools" placeholder="Schools of Interest" list="tags">
+        <datalist name="school_name">
+        <select name="school_name" size="3" multiple>
+          <option value="Baruch College">Baruch College</option>
+          <option value="City College of New York">City College of New York</option>
+          <option value="Columbia University">Columbia University</option>
+          <option value="Fashion Institute of Technology">FIT</option>
+          <option value="Fordham University">Fordham University</option>
+          <option value="Hunter College">Hunter College</option>
+          <option value="John Jay College of Criminal Justice">John Jay College of Criminal Justice</option>
+          <option value="Juilliard School">Juilliard School</option>
+          <option value="New School">New School</option>
+          <option value="New York University - NYU">New York University - NYU</option>
+          <option value="Pace University">Pace University</option>
+          <option value="Queens College">Queens College</option>
+          <option value="Rutgers University">Rutgers University</option>
+          <option value="Yeshiva University">Yeshiva University</option>
+          <option value="Fashion Institute of Technology">FIT</option>
+          <option value="Fashion Institute of Technology">FIT</option>
+          </select>
+        </datalist>
+       </div>
+       <div class="col s12 m12">
+         <input type="submit" value="Add">
+         <br><br>
+       </div>
+        <% if(schools){ %>
+          <% for (var i =0; i < schools.length; i++) { %>
+          <div class="row">
+            <div class="col s12 m12">
+              <div class="card light-grey darken-1">
+                <div class="card-content black-text">
+                    <span class="card-title"><%= schools[i].school_name %></span>
+                      <p>Ranking</p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <% } %>
+          <% } %>
+      </div>
+
+      </form>
+      </div>
+  </main>
+  <footer id="page-footer">
+    <div class="row">
+      <div class="col s12" id="footerContent">
+        <h6 class="white-text">HiScholar.com</h6>
+      </div>
+    </div>
+    <div id="footer-copyright">
+      <div class="row">
+        <div class="col s12">
+          © 2017 Banu Yilmaz
         </div>
- </footer>
-     <script
-   src="https://code.jquery.com/jquery-3.2.1.min.js"
-   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-   crossorigin="anonymous"></script>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-  </body>
+      </div>
+    </div>
+  </footer>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+</body>
+
 </html>

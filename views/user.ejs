@@ -37,10 +37,10 @@
               </div>
               <div class="col s6">
                   <input name="alma_mater" type="text" placeholder="alma mater here">
-                  <input name="gpa" type="text" placeholder="GPA">
-                  <input name="toefl" type="text" placeholder="TOEFL">
-                  <input name="ielts" type="text" placeholder="IELTS">
-                  <input name="sat" type="text" placeholder="SAT">
+                  <input name="gpa" type="number" step="0.01" class="form-control" min="0" max="10"  value="0.00" placeholder="GPA">
+                  <input name="toefl" type="number" placeholder="TOEFL">
+                  <input name="ielts" type="number" step="0.1" class="form-control" min="0" max="10"  value="0.00" placeholder="IELTS">
+                  <input name="sat" type="number" placeholder="SAT">
               </div>
               <div class="col s12">
                 <input type="submit" value="Submit">
