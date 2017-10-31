@@ -23,7 +23,7 @@
          <h3>Hello, <%=profile.name%></h3>
      </div>
       <div class="col s6 m4">
-        <h4 class="header">Personal information</h4>
+        <h5 class="header">Personal information</h5>
         <div class="card horizontal">
           <div class="card-image">
             <img src="https://lorempixel.com/100/190/nature/6">
@@ -39,7 +39,7 @@
                 <li>City: <%= profile.city%></li>
               <% } %>
               <% if (profile.alma_mater) { %>
-                <li>Alma_mater: <%= profile.alma_mater%></li>
+                <li>Alma mater: <%= profile.alma_mater%></li>
               <% } %>
               <% if (profile.gpa) { %>
                 <li>GPA: <%= profile.gpa%></li>
@@ -53,12 +53,43 @@
               </ul>
             </div>
             <div class="card-action">
-              <a href="#">Upload Your Resume</a>
+               <a href="#">Upload Resume</a>
+
             </div>
           </div>
         </div>
       </div>
 
+      <div class="col s6">
+           <div class="col s12">
+             <h5>Personal Statement</h5>
+             <div class="col s12">
+               <div class="col s6">
+                 <form action="/users/<%= user.id%>/statement" method="post">
+                   <input type="text" placeholder="title" name="title">
+                   <input type="text" name="post" placeholder="post">
+                   <input type="submit" value="Add">
+                 </form>
+               </div>
+             </div>
+           </div>
+           <% if(post){ %>
+           <% for(var i =0; i < post.length; i++) { %>
+             <div class="row">
+               <div class="col s12 m6">
+                 <div class="card light-grey darken-1">
+                   <div class="card-content black-text">
+                     <span class="card-title"><%= post[i].title %></span>
+                     <p>
+                       <%= post[i].post %>
+                     </p>
+                   </div>
+                 </div>
+               </div>
+             </div>
+             <% } %>
+         <% } %>
+   </div>
     </main>
      <footer id="page-footer">
           <div class="row">

@@ -37,15 +37,43 @@ function isValid(id){
 
 app.get("/users/:id/profile", function(req, res, next){
   const id = req.params.id;
+  knex("users")
+   .where("id", id)
+   .first()
+   .then(function(user){
      knex("students")
       .where("user_id", id)
       .first()
       .then(function(profile){
-        console.log("this is profile ", profile);
-        res.render("profile", {profile});
+        knex("statement")
+         .where("user_id", id)
+         .first()
+         .then(function(post){
+        console.log("this is profile ", profile, user, post);
+        res.render("profile", {user, profile, post});
       }).catch(function(err){
         console.log(err);
       });
+  });
+ });
+});
+
+app.get("/users/:id/statement", function(req, res, next){
+  const id = req.params.id;
+  knex("users")
+   .where("id", id)
+   .first()
+   .then(function(user){
+     knex("statement")
+      .where("user_id", id)
+      .first()
+      .then(function(post){
+        console.log("this is post ", post);
+        res.render("user", {user, post});
+      }).catch(function(err){
+        console.log(err);
+      });
+  });
 });
 
 app.get("/users/:id", function(req, res, next){
@@ -62,18 +90,23 @@ app.get("/users/:id", function(req, res, next){
 });
 
 //to create and post a personal statement
-// app.post("/users/:id/profile/statement", function(req, res, next){
-//   const id = req.params.id;
-//   const {title, post} = req.body;
-//   knex("statement")
-//   .insert({
-//     title: title,
-//     post: post,
-//     user_id: id
-//   }).then(function(){
-//     res.redirect("/users/" + id + "/profile" )
-//   });
-// });
+app.post("/users/:id/statement", function(req, res, next){
+  const id = req.params.id;
+  const {title, post} = req.body;
+  knex("users")
+   .where("id", id)
+   .first()
+   .then(function(user){
+      knex("statement")
+      .insert({
+        title: title,
+        post: post,
+        user_id: id
+     }).then(function(){
+    res.redirect("/users/" + id + "/profile" )
+   });
+ });
+});
 
 
 //create and post personal information to students table
