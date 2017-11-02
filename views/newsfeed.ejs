@@ -59,20 +59,20 @@
       $.get("https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=0c402791ba124cc1ac015195c5139237&q=" +searchTerm, function(data){
 
          var snippetArray= data.response.docs;
+         console.log("This is snippetArray:", snippetArray[0])
            var snippetString = "";
            for(var i=0; i< snippetArray.length; i++){
            console.log(snippetArray[i].snippet);
            if(snippetArray[i].snippet.indexOf("News about") === -1){
             if(snippetArray[i].snippet.indexOf("<p>")=== -1){
-              if(snippetArray[i] !== snippetArray.length - 1){
-               snippetString+= snippetArray[i].snippet + "\n" + "\n" + "\n";
-             } else{
-               snippetString+= snippetArray[i].snippet
-             }
+              snippetString+= "<a target='_blank' href="+ snippetArray[i].web_url+ " >"+"<p>" +snippetArray[i].snippet + "<p>" + "</a>"+"\n" + "\n" + "\n";
+              } else{
+                snippetString+= "<a target='_blank' href="+ snippetArray[i].web_url+ ">"+ "<p>" + snippetArray[i].snippet + "<p>" + "</a>"
+              }
           }
         }
-       }
-      document.querySelector("#snippetBox").innerText = snippetString;
+       console.log(snippetArray[0].web_url);
+      document.querySelector("#snippetBox").innerHTML = snippetString;
      });
 
    </script>
