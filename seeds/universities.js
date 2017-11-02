@@ -106,12 +106,12 @@ exports.seed = function(knex, Promise) {
         },
         {
           id: 10,
-          school_name: "Yeshiva_University",
+          school_name: "Yeshiva University",
           description: "Yeshiva University is a private institution that was founded in 1886. It has a total undergraduate enrollment of 2,714.",
           ranking: 94,
           tuition: 42000,
           acceptance_rate: 51,
-          imgURL:"https://www.lsac.org/images/default-source/llm-images/2990-02.jpg",
+          imgURL:"https://bcexpert.uk/wp-content/uploads/2016/12/education-uk.jpg",
           latitude:40.734726,
           longitude:-73.996215
         }
