@@ -1,8 +1,8 @@
 
 exports.up = function(knex, Promise) {
-  return knex.schema.createTable("universities", function(table){
+  return knex.schema.createTable("programs", function(table){
     table.increments("id").primary();
-    table.string("school_name").notNullable().defaultTo("");
+    table.string("program_name").notNullable().defaultTo("");
     table.integer("user_id").notNullable().references("id").inTable("users").onDelete("cascade").index();
     table.timestamps(true,true);
   });
@@ -10,5 +10,5 @@ exports.up = function(knex, Promise) {
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTable("universities");
+  return knex.schema.dropTable("programs");
 };

@@ -1,3 +1,4 @@
+var fs = require("fs");
 const env = process.env.NODE_ENV || "development";
 const config = require('./knexfile.js')[env];
 const knex = require('knex')(config);
@@ -31,6 +32,10 @@ app.get("/forgot_password", function(req, res, next){
   res.render("error");
 });
 
+app.get("/profile", function(req, res, next){
+  res.render("profile");
+});
+
 function isValid(id){
   return !isNaN(id);
 }
@@ -49,37 +54,27 @@ app.get("/users/:id/profile", function(req, res, next){
          .where("user_id", id)
          .first()
          .then(function(post){
-           knex("universities")
-            .where("user_id", id)
-            //.first()
+           knex("university_selection")
+           .where("user_id", id)
+           .first()
             .then(function(schools){
-              console.log("this is schools", schools);
-             res.render("profile", {user, profile, post, schools});
-             }).catch(function(err){
-             console.log(err);
-           });
+              knex("programs")
+              .where("user_id", id)
+              .then(function(programs){
+                knex("universities")
+                .then(function(data){
+                  console.log("this is data ", data, "this is schools: ", schools)
+                  res.render("profile", {user, profile, post, schools, programs, data});
+                  }).catch(function(err){
+                  console.log(err);
+                });
+                })
+              //console.log("this is programs", programs);
+           })
         });
     });
   });
 });
-
-// app.get("/users/:id/profile/statement", function(req, res, next){
-//   const id = req.params.id;
-//   knex("users")
-//    .where("id", id)
-//    .first()
-//    .then(function(user){
-//      knex("statement")
-//       .where("user_id", id)
-//       .first()
-//       .then(function(post){
-//         console.log("this is post ", post);
-//         res.render("user", {user, post});
-//       }).catch(function(err){
-//         console.log(err);
-//       });
-//   });
-// });
 
 app.get("/users/:id", function(req, res, next){
    const id = req.params.id;
@@ -114,7 +109,7 @@ app.post("/users/:id/profile/statement", function(req, res, next){
 });
 
 
-//to post schools and programs
+//to post schools of choice
 app.post("/users/:id/profile/schools", function(req, res, next){
   const id = req.params.id;
   const {school_name} = req.body;
@@ -122,9 +117,45 @@ app.post("/users/:id/profile/schools", function(req, res, next){
    .where("id", id)
    .first()
    .then(function(user){
-      knex("universities")
+      knex("university_selection")
       .insert({
         school_name: school_name,
+        user_id: id
+     }).then(function(){
+    res.redirect("/users/" + id + "/profile" );
+   });
+ });
+});
+
+app.delete("/users/:id/schools/:school_id", function(req, res, next){
+  const id = parseInt(req.params.id);
+  const school_id = parseInt(req.params.school_id);
+  let school;
+  knex("universities")
+    .where("school_id", id)
+    .first()
+    .then(function(row){
+      school = row;
+       return knex("universities")
+        .del()
+        .where("school_id", id);
+    })
+    .then(function(){
+      res.redirect("users/" + id + "/profile");
+    });
+});
+
+//to post programs of choice
+app.post("/users/:id/profile/programs", function(req, res, next){
+  const id = req.params.id;
+  const { program_name } = req.body;
+  knex("users")
+   .where("id", id)
+   .first()
+   .then(function(user){
+      knex("programs")
+      .insert({
+        program_name: program_name,
         user_id: id
      }).then(function(){
     res.redirect("/users/" + id + "/profile" );
@@ -211,4 +242,4 @@ app.post("/sign_up", function(req,res, next){
 
 app.listen(port, function(){
   console.log("Listening on ", port);
-})
+});

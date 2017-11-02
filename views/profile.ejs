@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
   <title>HiScholar Profile Page</title>
 </head>
 
-<body background="img/backgroundImg.png">
+<body background="/img/backgroundImg.png">
   <nav id="navigation">
     <div class="nav-wrapper">
       <a href="/profile" class="brand-logo">HiScholar</a>
@@ -21,54 +20,65 @@
   <main>
     <br><br>
     <div class="row">
-      <div class="col s12">
-        <h3>Hello, <%=profile.name%></h3>
+      <div class="col s6">
+        <div class="col s3">
+          <img id="profileImg" src="/img/profile.jpg" alt="img" style="border-radius:10%">
+          <br>
+        </div>
+        <div  class="col s10">
+          <h3 >Hello, <%=profile.name%>!</h3>
+        </div>
       </div>
-      <div class="col s6 m4">
-        <h5 class="header">Personal information</h5>
-        <div class="card horizontal">
-          <div class="card-image">
-            <img src="https://lorempixel.com/100/190/nature/6">
-          </div>
-          <div class="card-stacked">
-            <div class="card-content">
-              <ul>
+    </div>
 
-                <% if (profile.country) { %>
-                  <li>Country:
-                    <%= profile.country%>
-                  </li>
-                  <% } %>
-                    <% if (profile.city) { %>
-                      <li>City:
-                        <%= profile.city%>
-                      </li>
-                      <% } %>
-                        <% if (profile.alma_mater) { %>
-                          <li>Alma mater:
-                            <%= profile.alma_mater%>
-                          </li>
-                          <% } %>
-                            <% if (profile.gpa) { %>
-                              <li>GPA:
-                                <%= profile.gpa%>
-                              </li>
-                              <% } %>
-                                <% if (profile.sat) { %>
-                                  <li>SAT:
-                                    <%= profile.sat%>
-                                  </li>
-                                  <% } %>
-                                    <% if (profile.toefl) { %>
-                                      <li>TOEFL:
-                                        <%= profile.toefl%>
-                                      </li>
-                                      <% } %>
-              </ul>
+    <div class="row">
+      <div class="col s6">
+        <div class="col s9">
+          <h5 class="header">Personal information</h5>
+          <div class="card horizontal">
+            <div class="card-image">
+              <br>
+              <p> </p><img id="logoImg" src="/img/logo1.png">
             </div>
-            <div class="card-action">
-              <a href="#">Upload Resume</a>
+            <div class="card-stacked">
+              <div class="card-content">
+                <ul>
+                  <% if (profile.country) { %>
+                    <li>Country:
+                      <%= profile.country%>
+                    </li>
+                    <% } %>
+                      <% if (profile.city) { %>
+                        <li>City:
+                          <%= profile.city%>
+                        </li>
+                        <% } %>
+                          <% if (profile.alma_mater) { %>
+                            <li>Alma mater:
+                              <%= profile.alma_mater%>
+                            </li>
+                            <% } %>
+                              <% if (profile.gpa) { %>
+                            <li>GPA:
+                              <%= profile.gpa%>
+                            </li>
+                            <% } %>
+                           <% if (profile.sat) { %>
+                            <li>SAT:
+                             <%= profile.sat%>
+                            </li>
+                              <% } %>
+                               <% if (profile.toefl) { %>
+                            <li>TOEFL:
+                             <%= profile.toefl%>
+                          </li>
+                    <% } %>
+                </ul>
+              </div>
+              <div class="card-action">
+                <a href="#">Upload Resume</a>
 
+              </div>
             </div>
           </div>
         </div>
@@ -103,59 +113,130 @@
             </div>
           </div>
           <% } %>
-      </div>
-  <div class="col s6">
-    <div class="col s12">
-        <h4>Add Schools</h4>
+        </div>
     </div>
-    <div class="col s6">
-      <div class="col s12">
-      <form action="/users/<%= user.id%>/profile/schools" method="post">
-      <input name="school_name" list="schools" placeholder="Schools of Interest" list="tags">
-        <datalist name="school_name">
-        <select name="school_name" size="3" multiple>
-          <option value="Baruch College">Baruch College</option>
-          <option value="City College of New York">City College of New York</option>
-          <option value="Columbia University">Columbia University</option>
-          <option value="Fashion Institute of Technology">FIT</option>
-          <option value="Fordham University">Fordham University</option>
-          <option value="Hunter College">Hunter College</option>
-          <option value="John Jay College of Criminal Justice">John Jay College of Criminal Justice</option>
-          <option value="Juilliard School">Juilliard School</option>
-          <option value="New School">New School</option>
-          <option value="New York University - NYU">New York University - NYU</option>
-          <option value="Pace University">Pace University</option>
-          <option value="Queens College">Queens College</option>
-          <option value="Rutgers University">Rutgers University</option>
-          <option value="Yeshiva University">Yeshiva University</option>
-          <option value="Fashion Institute of Technology">FIT</option>
-          <option value="Fashion Institute of Technology">FIT</option>
-          </select>
-        </datalist>
-       </div>
-       <div class="col s12 m12">
-         <input type="submit" value="Add">
-         <br><br>
-       </div>
-        <% if(schools){ %>
-          <% for (var i =0; i < schools.length; i++) { %>
-          <div class="row">
-            <div class="col s12 m12">
-              <div class="card light-grey darken-1">
-                <div class="card-content black-text">
-                    <span class="card-title"><%= schools[i].school_name %></span>
-                      <p>Ranking</p>
 
-                </div>
-              </div>
+      <div class="row">
+          <div class="col s12">
+            <div class="col s12">
+              <h4>Add Schools</h4>
             </div>
-          </div>
-          <% } %>
-          <% } %>
-      </div>
+          <div class="col s6">
 
-      </form>
-      </div>
+            <div class="col s6">
+             <form action="/users/<%= user.id%>/profile/schools" method="post">
+              <input name="school_name" list="schools" placeholder="Schools of Interest" list="tags">
+              <datalist id="schools">
+              <select name="school_name" size="3" multiple>
+              <option value="Baruch College">Baruch College</option>
+              <option value="Columbia University">Columbia University</option>
+              <option value="Fashion Institute of Technology">Fashion Institute of Technology - FIT</option>
+              <option value="Fordham University">Fordham University</option>
+              <option value="Hunter College">Hunter College</option>
+              <option value="John Jay College of Criminal Justice">John Jay College of Criminal Justice</option>
+              <option value="New School">New School</option>
+              <option value="New York University - NYU">New York University - NYU</option>
+              <option value="Pace University">Pace University</option>
+              <option value="Yeshiva University">Yeshiva University</option>
+              </select>
+            </datalist>
+          </div>
+
+          <div id="mainSearch" class="col s12 m12">
+            <input type="submit" value="Add">
+            <br><br>
+          </div>
+          <% if(schools){ %>
+              <% for (var i =0; i < data.length; i++) { %>
+              <div class="row">
+                  <div class="col s10">
+                      <%if(schools.school_name === data[i].school_name) { %>
+                    <div class="card-image waves-effect waves-block waves-light">
+                      <img id="schoolImg" class="activator" src="<%=data[i].imgURL%>">
+                    </div>
+                     <div class="card-panel light-grey">
+                       <span class="black-text"><b><%= schools.school_name%></b></span>
+                          <p><%= data[i].description %></p>
+                          <p><b>Acceptance Rate:</b> <%= data[i].acceptance_rate %>%</p>
+                          <p><b>Tuition: </b>$<%= data[i].tuition %></p>
+                          <p><b>Ranking:</b><%= data[i].ranking %></p>
+                            <p id="lat" style="color:transparent"><%= data[i].latitude %></p>
+                            <p id="lng" style="color:transparent"><%= data[i].longitude%></p>
+                      </div>
+                      <% } %>
+                    </div>
+                </div>
+              <% } %>
+            <% } %>
+          </form>
+           <div class="col s12" id="map"></div>
+          </div>
+          <div class="col s6">
+            <div class="col s6">
+              <h4>Add programs</h4>
+              <form action="/users/<%= user.id%>/profile/programs" method="POST">
+                <input name="program_name" list="programs" placeholder="Programs of Interest" list="tags">
+                <datalist id="programs">
+                  <select name="program_name" size="3" multiple>
+                     <option value="Biology">Biology</option>
+                     <option value="Business">Business</option>
+                     <option value="Computer Science">Computer Science</option>
+                     <option value="Engineering">Engineering</option>
+                     <option value="Education">Education</option>
+                     <option value="English">English</option>
+                     <option value="Healthcare">Healthcare</option>
+                     <option value="History">History</option>
+                     <option value="Psychology">Psychology</option>
+                     <option value="Social Sciences">Social Sciences</option>
+                  </select>
+                </datalist>
+            </div>
+            <div class="col s12">
+              <input type="submit" value="Add">
+              <br><br>
+            </div>
+            <% if(programs){ %>
+              <% for (var j =0; j < programs.length; j++) { %>
+                <div class="row">
+                  <div class="col s6 m6">
+                    <div class="card light-grey darken-1">
+                      <div class="card-content black-text">
+                        <span class="card-title"><%= programs[j].program_name %></span>
+                        <% if(programs[j].program_name === "Business") { %>
+                        <p>Number 1 ranking program in the US with average starting salaries of $41,200</p>
+                        <% } %>
+                        <% if(programs[j].program_name === "Biology") { %>
+                        <p>Number 5 ranking program in the US with average starting salaries of $30,200</p>
+                        <% } %>
+                        <% if(programs[j].program_name === "Computer Science") { %>
+                        <p>Number 3 ranking program in the US with average starting salaries of $50,200</p>
+                       <% } %>
+                       <% if(programs[j].program_name === "Healthcare") { %>
+                       <p>Number 6 ranking program in the US with average starting salaries of $40,500</p>
+                       <% } %>
+                       <% if(programs[j].program_name === "English") { %>
+                       <p>Number 4 ranking program in the US with average starting salaries of $35,500</p>
+                       <% } %>
+                       <% if(programs[j].program_name === "History") { %>
+                       <p>Number 8 ranking program in the US with average starting salaries of $30,500</p>
+                       <% } %>
+                       <% if(programs[j].program_name === "Psychology") { %>
+                       <p>Number 9 ranking program in the US with average starting salaries of $39,500</p>
+                       <% } %>
+                       <% if(programs[j].program_name === "Social Sciences") { %>
+                       <p>Number 10 ranking program in the US with average starting salaries of 25,500</p>
+                       <% } %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                  <% } %>
+                  <% } %>
+                    </form>
+          </div>
+        </div>
+    </div>
+
   </main>
   <footer id="page-footer">
     <div class="row">
@@ -171,6 +252,33 @@
       </div>
     </div>
   </footer>
+  <script>
+    function initMap() {
+        if (marker) {
+          marker.setMap(null) // clears the marker
+          }
+          var lat = parseFloat(document.querySelector("#lat").innerHTML);
+          var lng=  parseFloat(document.querySelector("#lng").innerHTML);
+          console.log(typeof lat, typeof lng);
+              var map = new google.maps.Map(document.querySelector("#map"), {
+                zoom: 13,
+                center: {
+                  lat: lat,
+                  lng: lng
+                }
+              });
+              var marker = new google.maps.Marker({
+                zoom: 13,
+                position: {
+                  lat: lat,
+                  lng: lng
+                },
+                map: map
+              });
+              //console.log("Lat: " + lat + " " + "Lang: " + lng);
+     }
+  </script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUOm9Z7AG0rigIDR5FhH9J_OYbfKGO_XM&callback=initMap"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 </body>
