@@ -20,17 +20,17 @@
        </div>
      </nav>
      <main>
-
+   <br>
      <div class="row">
        <div class="col s12">
-         <div id="feedContainer" class="container">
+          <div id="feedContainer" class="container">
            <div id="snippetBox">
-            <p>Oh la la!</p>
-            <br><br><br><br><br><br>
+            <p id="snippetBoxVal"><%= schools.school_name%></p>
+            <br><br><br><br><br><br><br>
            </div>
          </div>
-       </div>
      </div>
+   </div>
 
 
     </main>
@@ -48,28 +48,34 @@
          </div>
         </div>
  </footer>
-  <script>
-    //  $.get("https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=0c402791ba124cc1ac015195c5139237&q=" +searchTerm, function(data){
-    //     var snippetArray= data.response.docs;
-    //       var snippetString = "";
-    //       for(var i=0; i< snippetArray.length; i++){
-    //       console.log(snippetArray[i].snippet);
-    //       if(snippetArray[i].snippet.indexOf("News about") === -1){
-    //       if(snippetArray[i] !== snippetArray.length - 1){
-    //         snippetString+= snippetArray[i].snippet + "\n" + "\n";
-    //      } else{
-    //         snippetString+= snippetArray[i].snippet
-    //      }
-    //    }
-    //   }
-    //  document.querySelector("#snippetBox").innerText = snippetString;
-    // });
 
-  </script>
 <script
    src="https://code.jquery.com/jquery-3.2.1.min.js"
    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
    crossorigin="anonymous"></script>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+   <script>
+
+     var searchTerm = document.querySelector("#snippetBoxVal").innerHTML;
+      $.get("https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=0c402791ba124cc1ac015195c5139237&q=" +searchTerm, function(data){
+
+         var snippetArray= data.response.docs;
+           var snippetString = "";
+           for(var i=0; i< snippetArray.length; i++){
+           console.log(snippetArray[i].snippet);
+           if(snippetArray[i].snippet.indexOf("News about") === -1){
+            if(snippetArray[i].snippet.indexOf("<p>")=== -1){
+              if(snippetArray[i] !== snippetArray.length - 1){
+               snippetString+= snippetArray[i].snippet + "\n" + "\n" + "\n";
+             } else{
+               snippetString+= snippetArray[i].snippet
+             }
+          }
+        }
+       }
+      document.querySelector("#snippetBox").innerText = snippetString;
+     });
+
+   </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
   </body>
 </html>
