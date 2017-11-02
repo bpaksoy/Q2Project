@@ -32,9 +32,33 @@ app.get("/forgot_password", function(req, res, next){
   res.render("error");
 });
 
-app.get("/profile", function(req, res, next){
-  res.render("profile");
-});
+// app.get("/profile", function(req, res, next){
+//   res.render("profile");
+// });
+
+
+app.get("/users/:id/newsfeed", function(req, res, next){
+  const id = req.params.id;
+  knex("users")
+   .where("id", id)
+   .first()
+   .then(function(user){
+     knex("students")
+      .where("user_id", id)
+      .first()
+      .then(function(student){
+        knex("university_selection")
+        .where("user_id", id)
+        .first()
+        .then(function(schools){
+          console.log("user", user, "schools: ", schools);
+          res.render("newsfeed", {user, student, schools});
+        }).catch(function(err){
+        console.log(err);
+        });
+      })
+  })
+})
 
 function isValid(id){
   return !isNaN(id);
@@ -63,7 +87,7 @@ app.get("/users/:id/profile", function(req, res, next){
               .then(function(programs){
                 knex("universities")
                 .then(function(data){
-                  console.log("this is data ", data, "this is schools: ", schools)
+                  //console.log("this is data ", data, "this is schools: ", schools)
                   res.render("profile", {user, profile, post, schools, programs, data});
                   }).catch(function(err){
                   console.log(err);
@@ -109,6 +133,40 @@ app.post("/users/:id/profile/statement", function(req, res, next){
 });
 
 
+app.post("/users/:id/newsfeed", function(req, res, next){
+  const id = req.params.id;
+  knex("users")
+   .where("id", id)
+   .first()
+    .then(function(){
+    res.redirect("/users/" + id + "/newsfeed" );
+   });
+});
+
+
+app.post("//users/:id/profile", function(req,res, next){
+    const id = req.params.id;
+
+})
+
+app.delete("/users/:id/schools/:school_id", function(req, res, next){
+  const id = parseInt(req.params.id);
+  const school_id = parseInt(req.params.school_id);
+  let school;
+  knex("universities")
+    .where("school_id", id)
+    .first()
+    .then(function(row){
+      school = row;
+       return knex("universities")
+        .del()
+        .where("school_id", id);
+     })
+    .then(function(){
+      res.redirect("users/" + id + "/profile");
+    });
+});
+
 //to post schools of choice
 app.post("/users/:id/profile/schools", function(req, res, next){
   const id = req.params.id;
@@ -127,23 +185,6 @@ app.post("/users/:id/profile/schools", function(req, res, next){
  });
 });
 
-app.delete("/users/:id/schools/:school_id", function(req, res, next){
-  const id = parseInt(req.params.id);
-  const school_id = parseInt(req.params.school_id);
-  let school;
-  knex("universities")
-    .where("school_id", id)
-    .first()
-    .then(function(row){
-      school = row;
-       return knex("universities")
-        .del()
-        .where("school_id", id);
-    })
-    .then(function(){
-      res.redirect("users/" + id + "/profile");
-    });
-});
 
 //to post programs of choice
 app.post("/users/:id/profile/programs", function(req, res, next){

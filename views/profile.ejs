@@ -20,11 +20,18 @@
   <main>
     <br><br>
     <div class="row">
-      <div class="col s6">
+      <div class="col s8">
         <div class="col s3">
           <img id="profileImg" src="/img/profile.jpg" alt="img" style="border-radius:10%">
-          <br>
         </div>
+        <div class="col s6">
+            <br><br>
+        </div>
+        <% if (schools) {%>
+        <div id="note" class="col s3">
+          <h5>Get the newsfeed about <a href="/users/<%= user.id%>/newsfeed"><%= schools.school_name%></a></h5>
+        </div>
+        <% } %>
         <div  class="col s10">
           <h3 >Hello, <%=profile.name%>!</h3>
         </div>
@@ -87,7 +94,7 @@
       <div class="col s6">
         <div class="col s12">
           <div class="col s6">
-            <h5>Personal Statement</h5>
+            <h6>Personal Statement</h6>
           </div>
           <div class="col s12">
             <div class="col s6">
